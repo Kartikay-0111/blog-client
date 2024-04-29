@@ -10,7 +10,7 @@ function App() {
 
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path="/" element={<Root />}>
+      <Route path="/" element={<Root />}  errorElement={<Error/>}>
         <Route path='/blogs' index element={<Home  />} loader={dataLoader} errorElement={<Error/>} />
         <Route path='/' element={<Home  />} loader={dataLoader} errorElement={<Error/>} />
         <Route path='/blogs/:id' index element={<Details  />} errorElement={<Error/>} />

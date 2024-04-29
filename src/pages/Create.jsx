@@ -25,7 +25,7 @@ export const Create = () => {
         const blog = { title, snippet, body };
 
         try {
-            const response = await fetch('http://localhost:4000/vjti/blogs', {
+            const response = await fetch('https://vjti-blog-server.onrender.com/vjti/blogs', {
                 method: 'POST',
                 body: JSON.stringify(blog),
                 headers: {

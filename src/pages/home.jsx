@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData,Link } from 'react-router-dom';
 
 export const Home = () => {
 const blogs = useLoaderData()
@@ -34,10 +34,10 @@ const blogs = useLoaderData()
     <div className="blogs content">
       {blogs && blogs.map((blog) => {
         return (
-          <a key={blog._id} className="single" href={`/blogs/${blog._id}`}>
+          <Link key={blog._id} className="single" to={`/blogs/${blog._id}`}>
             <h3 className="title">{blog.title}</h3>
             <p className="snippet">{blog.snippet}</p>
-          </a>
+          </Link>
         )
       })}
     </div>
@@ -46,7 +46,7 @@ const blogs = useLoaderData()
 
 export const dataLoader = async () => {
   try {
-    const response = await fetch("http://localhost:4000/vjti/blogs");
+    const response = await fetch("https://vjti-blog-server.onrender.com/vjti/blogs");
     console.log(response.ok)
     if (!response.ok) {
       throw new Error('Failed to fetch blogs');

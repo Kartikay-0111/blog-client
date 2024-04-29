@@ -2,8 +2,8 @@ import React from 'react'
 
 export const About = () => {
   return (
-   <div class="about content">
-        <h2>About </h2>
+   <div className="about content">
+        <h2 style={{color:"crimson"}}>About </h2>
         <p>
           Welcome to <span>VJTI Blog</span>, a virtual space designed exclusively for the vibrant community of Veermata
           Jijabai Technological Institute (VJTI) students!
