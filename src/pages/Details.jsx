@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useParams} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { useAuthContext } from '../hooks/useauthContext';
 
 export const Details = () => {
   const [blog, setBlog] = useState(null);
   const { id } = useParams();
-
+  const { user } = useAuthContext()
   useEffect(() => {
+
     const fetchBlogDetails = async () => {
       try {
         const response = await fetch(`https://vjti-blog-server.onrender.com/vjti/blogs/${id}`);
@@ -18,15 +20,20 @@ export const Details = () => {
         setBlog({ error: error.message });
       }
     };
-
     fetchBlogDetails();
 
   }, [id]);
 
   const handleDelete = () => {
+    if (!user) {
+      return
+    }
     const endpoint = `https://vjti-blog-server.onrender.com/vjti/blogs/${blog._id}`;
     fetch(endpoint, {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${user.token}`
+      }
     })
       .then((response) => response.json())
       .then(() => window.location.href = '/blogs')
@@ -52,7 +59,7 @@ export const Details = () => {
         <div>
           <p className='body'>{blog.body}</p>
         </div>
-        <button onClick={handleDelete} className="delete" type="button">Delete</button>
+        {user && <button onClick={handleDelete} className="delete" type="button">Delete</button>}
       </div>
     </div>
   );

@@ -1,23 +1,11 @@
 
 import React from 'react'
-import { useLoaderData,Link } from 'react-router-dom';
+import { useLoaderData, Link } from 'react-router-dom';
+import { useAuthContext } from '../hooks/useauthContext';
 
 export const Home = () => {
-const blogs = useLoaderData()
-// console.log(blogs)
-//   const [blogs, setBlog] = useState([])
-
-  // useEffect(() => {
-  //   const fetchBlogs = async () => {
-  //     const response = await fetch("/blogs")
-  //     const json = await response.json()
-  //     // console.log(json)
-  //     if (response.ok) {
-  //       setBlog(json.blogs);       
-  //     }
-  //   }
-  //   fetchBlogs();
-  // }, [])
+  const { user } = useAuthContext()
+  const blogs = useLoaderData(user)
 
   if (!blogs) {
     // Data is not yet available, show loading indicator or message
@@ -44,10 +32,15 @@ const blogs = useLoaderData()
   )
 }
 
-export const dataLoader = async () => {
+export const dataLoader = async (user) => {
+
   try {
-    const response = await fetch("https://vjti-blog-server.onrender.com/vjti/blogs");
-    console.log(response.ok)
+    const response = await fetch("http://vjti-blog-server.onrender.com/vjti/blogs", {
+      headers: {
+        'Authorization': `Bearer ${user.token}`
+      }
+    });
+    // console.log(response.ok)
     if (!response.ok) {
       throw new Error('Failed to fetch blogs');
     }
@@ -55,7 +48,7 @@ export const dataLoader = async () => {
     // console.log(json)
     return json.blogs;
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     return { error: error.message };
   }
 };
