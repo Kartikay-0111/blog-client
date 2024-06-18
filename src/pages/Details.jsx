@@ -5,12 +5,17 @@ import { useAuthContext } from '../hooks/useauthContext';
 export const Details = () => {
   const [blog, setBlog] = useState(null);
   const { id } = useParams();
+  // console.log(id + " id of blog")
   const { user } = useAuthContext()
   useEffect(() => {
 
     const fetchBlogDetails = async () => {
       try {
-        const response = await fetch(`https://vjti-blog-server.onrender.com/vjti/blogs/${id}`);
+        const response = await fetch(`http://localhost:4000/vjti/blogs/${id}`,{
+          headers: {
+            'Authorization': `Bearer ${user.token}`
+          }
+      });
         if (!response.ok) {
           throw new Error('Failed to fetch blog details');
         }
@@ -22,13 +27,13 @@ export const Details = () => {
     };
     fetchBlogDetails();
 
-  }, [id]);
+  }, [id,user]);
 
   const handleDelete = () => {
     if (!user) {
       return
     }
-    const endpoint = `https://vjti-blog-server.onrender.com/vjti/blogs/${blog._id}`;
+    const endpoint = `http://localhost:4000/vjti/blogs/${blog._id}`;
     fetch(endpoint, {
       method: 'DELETE',
       headers: {

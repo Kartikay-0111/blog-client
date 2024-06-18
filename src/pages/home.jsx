@@ -1,11 +1,11 @@
 
 import React from 'react'
 import { useLoaderData, Link } from 'react-router-dom';
-import { useAuthContext } from '../hooks/useauthContext';
+// import { useAuthContext } from '../hooks/useauthContext';
 
 export const Home = () => {
-  const { user } = useAuthContext()
-  const blogs = useLoaderData(user)
+  // const { user } = useAuthContext()
+  const blogs = useLoaderData()
 
   if (!blogs) {
     // Data is not yet available, show loading indicator or message
@@ -32,10 +32,15 @@ export const Home = () => {
   )
 }
 
-export const dataLoader = async (user) => {
+export const dataLoader = async () => {
+  const user = JSON.parse(localStorage.getItem('user')); // Example: storing user in localStorage
+
+  if (!user || !user.token) {
+    return { error: 'User is not authenticated' };
+  }
 
   try {
-    const response = await fetch("http://vjti-blog-server.onrender.com/vjti/blogs", {
+    const response = await fetch("http://localhost:4000/vjti/blogs", {
       headers: {
         'Authorization': `Bearer ${user.token}`
       }
