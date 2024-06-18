@@ -11,7 +11,7 @@ export const Details = () => {
 
     const fetchBlogDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/vjti/blogs/${id}`,{
+        const response = await fetch(`https://vjti-blog-server.onrender.com/vjti/blogs/${id}`,{
           headers: {
             'Authorization': `Bearer ${user.token}`
           }
@@ -33,7 +33,7 @@ export const Details = () => {
     if (!user) {
       return
     }
-    const endpoint = `http://localhost:4000/vjti/blogs/${blog._id}`;
+    const endpoint = `https://vjti-blog-server.onrender.com/vjti/blogs/${blog._id}`;
     fetch(endpoint, {
       method: 'DELETE',
       headers: {

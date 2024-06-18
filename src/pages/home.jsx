@@ -40,7 +40,7 @@ export const dataLoader = async () => {
   }
 
   try {
-    const response = await fetch("http://localhost:4000/vjti/blogs", {
+    const response = await fetch("https://vjti-blog-server.onrender.com/vjti/blogs", {
       headers: {
         'Authorization': `Bearer ${user.token}`
       }
