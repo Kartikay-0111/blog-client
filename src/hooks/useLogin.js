@@ -5,19 +5,20 @@ export const useLogin = () => {
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(null)
     const {dispatch} = useAuthContext()
-    const login = async (email, password) => {
+    const login = async (username, password) => {
         setIsLoading(true)
         setError(null)
 
         try {
-            const response = await fetch('https://vjti-blog-server.onrender.com/vjti/user/login', {
+            const response = await fetch('http://localhost:4000/vjti/user/login', {
                 method: 'POST',
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify({username, password }),
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
             const json = await response.json()
+            console.log(JSON.stringify(json))
             if (!response.ok) {
                 setIsLoading(false)
                 setError(json.error)

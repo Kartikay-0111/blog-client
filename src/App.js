@@ -7,6 +7,7 @@ import { Footer } from './components/Footer';
 import { Error } from './pages/Error'
 import { Details } from './pages/Details';
 import { Home, dataLoader } from './pages/home';
+import {Blogs,myblogLoader} from './pages/blogs';
 import Signup from './pages/register';
 import Login from './pages/login';
 
@@ -16,13 +17,13 @@ function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<Root />} errorElement={<Error />}>
-        <Route path='/blogs' index element={<Home />} loader={dataLoader} errorElement={<Error />} />
+        <Route path='/myblogs' index element={<Blogs />} loader={myblogLoader} errorElement={<Error />} />
         <Route path='/' element={<Home />} loader={dataLoader} errorElement={<Error />} />
         <Route path='/blogs/:id' index element={<Details />} errorElement={<Error />} />
         <Route path='/about' element={<About />} errorElement={<Error />} />
         <Route path='/blogs/create' element={<Create />} errorElement={<Error />} />
-        <Route path='/blogs/signup' element={!user ? <Signup /> : <Navigate to="/blogs" />} errorElement={<Error />} />
-        <Route path='/blogs/login' element={!user ? <Login /> : <Navigate to="/blogs" />} errorElement={<Error />} />
+        <Route path='/blogs/signup' element={!user ? <Signup /> : <Navigate to="/myblogs" />} errorElement={<Error />} />
+        <Route path='/blogs/login' element={!user ? <Login /> : <Navigate to="/myblogs" />} errorElement={<Error />} />
       </Route>
     )
   )
@@ -32,7 +33,7 @@ function App() {
       <RouterProvider router={router} />
     </div>
   );
-}
+} 
 const Root = () => {
   return (
     <>

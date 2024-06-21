@@ -4,7 +4,7 @@ export const Footer = () => {
     const { user } = useAuthContext()
     return (
         <div>
-           <footer> Copyright &copy; VJTI Blog 2024 {user && <div>{user.email}</div>}</footer> 
+           <footer> Copyright &copy; VJTI Blog 2024 {user && <div>{user.username}</div>}</footer> 
           
         </div>
     )

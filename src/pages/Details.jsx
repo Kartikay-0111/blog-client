@@ -11,7 +11,7 @@ export const Details = () => {
 
     const fetchBlogDetails = async () => {
       try {
-        const response = await fetch(`https://vjti-blog-server.onrender.com/vjti/blogs/${id}`,{
+        const response = await fetch(`http://localhost:4000/vjti/${id}`,{
           headers: {
             'Authorization': `Bearer ${user.token}`
           }
@@ -41,7 +41,7 @@ export const Details = () => {
       }
     })
       .then((response) => response.json())
-      .then(() => window.location.href = '/blogs')
+      .then(() => window.location.href = '/myblogs')
       .catch(err => console.log(err));
   };
 
@@ -64,7 +64,7 @@ export const Details = () => {
         <div>
           <p className='body'>{blog.body}</p>
         </div>
-        {user && <button onClick={handleDelete} className="delete" type="button">Delete</button>}
+        {user.username===blog.username && <button onClick={handleDelete} className="delete" type="button">Delete</button>}
       </div>
     </div>
   );

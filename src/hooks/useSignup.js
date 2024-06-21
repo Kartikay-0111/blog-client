@@ -5,14 +5,14 @@ export const useSignup = () => {
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(null)
     const {dispatch} = useAuthContext()
-    const signup = async (email, password) => {
+    const signup = async (email,username, password) => {
         setIsLoading(true)
         setError(null)
 
         try {
-            const response = await fetch('https://vjti-blog-server.onrender.com/vjti/user/signup', {
+            const response = await fetch('http://localhost:4000/vjti/user/signup', {
                 method: 'POST',
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify({ email,username, password }),
                 headers: {
                     'Content-Type': 'application/json'
                 }

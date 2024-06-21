@@ -3,7 +3,7 @@ import React from 'react'
 import { useLoaderData, Link } from 'react-router-dom';
 // import { useAuthContext } from '../hooks/useauthContext';
 
-export const Home = () => {
+export const Blogs = () => {
   // const { user } = useAuthContext()
   const blogs = useLoaderData()
 
@@ -32,7 +32,7 @@ export const Home = () => {
   )
 }
 
-export const dataLoader = async () => {
+export const myblogLoader = async () => {
   const user = JSON.parse(localStorage.getItem('user')); // Example: storing user in localStorage
 
   if (!user || !user.token) {
@@ -40,7 +40,7 @@ export const dataLoader = async () => {
   }
 
   try {
-    const response = await fetch("http://localhost:4000/vjti/", {
+    const response = await fetch("http://localhost:4000/vjti/myblogs", {
       headers: {
         'Authorization': `Bearer ${user.token}`
       }

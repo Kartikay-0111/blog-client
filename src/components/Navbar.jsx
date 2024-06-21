@@ -12,11 +12,12 @@ export const Navbar = () => {
         <div>
             <nav>
                 <div className="site-title">
-                    <Link to="/blogs"><h1 style={{ color: "crimson" }}>VJTI BLOG</h1></Link>
+                    <Link to="/"><h1 style={{ color: "crimson" }}>VJTI BLOG</h1></Link>
                     <p style={{ color: "bisque" }} >A Blog platform for VJTIANS</p>
                 </div>
                 <ul>
-                    <li><Link style={{ color: "bisque" }} to="/blogs">Blogs</Link></li>
+                    <li><Link style={{ color: "bisque" }} to="/">All Blogs</Link></li>
+                    {user && <li><Link style={{ color: "bisque" }} to="/myblogs">My Blogs</Link></li>}
                     <li><Link style={{ color: "bisque" }} to="/about">About</Link></li>
                     {user && <li><Link style={{ color: "bisque" }} to="/blogs/create">New Blog</Link></li>}
                     {user && <button onClick={handleLogout}>&nbsp;&nbsp;&nbsp;Log Out</button>}
