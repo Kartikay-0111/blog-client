@@ -7,6 +7,7 @@ export const Details = () => {
   const { id } = useParams();
   // console.log(id + " id of blog")
   const { user } = useAuthContext()
+
   useEffect(() => {
 
     const fetchBlogDetails = async () => {
@@ -65,6 +66,7 @@ export const Details = () => {
           <p className='body'>{blog.body}</p>
         </div>
         {user.username===blog.username && <button onClick={handleDelete} className="delete" type="button">Delete</button>}
+        {user.username===blog.username && <button onClick={()=>window.location.href = `/blogs/update/${blog._id}`} className="update" type="button">Edit</button>}
       </div>
     </div>
   );

@@ -10,7 +10,7 @@ import { Home, dataLoader } from './pages/home';
 import {Blogs,myblogLoader} from './pages/blogs';
 import Signup from './pages/register';
 import Login from './pages/login';
-
+import { Update } from './pages/update';
 
 function App() {
   const { user } = useAuthContext()
@@ -22,6 +22,7 @@ function App() {
         <Route path='/blogs/:id' index element={<Details />} errorElement={<Error />} />
         <Route path='/about' element={<About />} errorElement={<Error />} />
         <Route path='/blogs/create' element={<Create />} errorElement={<Error />} />
+        <Route path='/blogs/update/:id' element={<Update />} errorElement={<Error />} />
         <Route path='/blogs/signup' element={!user ? <Signup /> : <Navigate to="/myblogs" />} errorElement={<Error />} />
         <Route path='/blogs/login' element={!user ? <Login /> : <Navigate to="/myblogs" />} errorElement={<Error />} />
       </Route>

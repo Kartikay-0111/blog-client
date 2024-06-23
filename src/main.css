@@ -121,6 +121,19 @@ h3 {
   cursor: pointer;
   background-color: crimson;
 }
+.update {
+  position: absolute;
+  top: 33px;
+  right: 0;
+  border-radius: 10px;
+  padding: 8px;
+  background-color: rgb(229, 71, 103);
+}
+
+.update:hover {
+  cursor: pointer;
+  background-color: crimson;
+}
 
 /* create styles */
 
