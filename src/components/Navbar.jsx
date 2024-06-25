@@ -1,29 +1,40 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import {Link, NavLink } from 'react-router-dom'
 import { useLogout } from '../hooks/useLogout'
-import { useAuthContext } from '../hooks/useauthContext'
+// import { useAuthContext } from '../hooks/useauthContext'
+import userimg from "../assets/prf-img.jpg"
 export const Navbar = () => {
     const { logout } = useLogout()
     const handleLogout = () => {
         logout()
     }
-    const { user } = useAuthContext()
+    const user = JSON.parse(localStorage.getItem('user'));
+    // console.log(user)
     return (
-        <div>
-            <nav>
+        <div style={{ width: "320px" }}>
+            <nav id='sidebar' className="w-72 sm:w-72 md:w-72 lg:w-80 xl:w-80">
                 <div className="site-title">
-                    <Link to="/"><h1 style={{ color: "crimson" }}>VJTI BLOG</h1></Link>
-                    <p style={{ color: "bisque" }} >A Blog platform for VJTIANS</p>
+                    <Link to="/"><p className="text-4xl font-bold mt-2" style={{ color: "crimson" }}>VJTI BLOG</p></Link>
                 </div>
+
+                <div>
+                    <div className='prf-img w-40'>
+                        <img src={userimg} alt='username_logo' />
+                    </div>
+                    {user && <p className=' text-violet-400' >{user.username}</p>}
+                </div>
+
                 <ul>
-                    <li><Link style={{ color: "bisque" }} to="/">All Blogs</Link></li>
-                    {user && <li><Link style={{ color: "bisque" }} to="/myblogs">My Blogs</Link></li>}
-                    <li><Link style={{ color: "bisque" }} to="/about">About</Link></li>
-                    {user && <li><Link style={{ color: "bisque" }} to="/blogs/create">New Blog</Link></li>}
-                    {user && <button onClick={handleLogout}>&nbsp;&nbsp;&nbsp;Log Out</button>}
-                    {!user && <li><Link style={{ color: "bisque" }} to="/blogs/login">Login</Link></li>}
-                    {!user && <li><Link style={{ color: "bisque" }} to="/blogs/signup">Signup</Link></li>}
+                    <li><NavLink to="/">All Blogs</NavLink></li>
+                    {user && <li><NavLink to="/myblogs">My Blogs</NavLink></li>}
+                    <li><NavLink to="/about">About</NavLink></li>
+                    {user && <li><NavLink to="/blogs/create">New Blog</NavLink></li>}
+                    {user && <li onClick={handleLogout}><span className="material-symbols-outlined cursor-pointer">logout</span></li>}
+                    {!user && <li><NavLink to="/blogs/login">Login</NavLink></li>}
+                    {!user && <li><NavLink to="/blogs/signup">Signup</NavLink></li>}
                 </ul>
+
+                <footer>Copyright &copy; VJTI Blog 2024</footer>
             </nav>
         </div>
     )

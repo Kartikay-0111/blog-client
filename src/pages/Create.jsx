@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Navigate } from "react-router-dom";
-import {useAuthContext} from "../hooks/useauthContext"
+import { useAuthContext } from "../hooks/useauthContext"
 export const Create = () => {
     const [title, setTitle] = useState('');
     const [snippet, setSnippet] = useState('');
@@ -8,7 +8,7 @@ export const Create = () => {
     const [error, setError] = useState(null);
     const [isSubmitted, setIsSubmitted] = useState(false); // State to track form submission
 
-    const {user } = useAuthContext()
+    const { user } = useAuthContext()
 
     const handleTitleChange = (event) => {
         setTitle(event.target.value);
@@ -24,7 +24,7 @@ export const Create = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if(!user){
+        if (!user) {
             setError("You must login first")
             return
         }
@@ -36,14 +36,14 @@ export const Create = () => {
                 body: JSON.stringify(blog),
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization' : `Bearer ${user.token}`
+                    'Authorization': `Bearer ${user.token}`
                 }
             });
             const json = await response.json()
             if (!response.ok) {
                 setError(json.error)
             }
-            if (response.ok) { 
+            if (response.ok) {
                 console.log(blog);
                 setBody('');
                 setTitle('');
@@ -62,16 +62,29 @@ export const Create = () => {
     }
 
     return (
-        <div className="create-blog content">
+        <div className="wrapper">
+            <div className="create_box">
+             <div className="create-header">
+                    <span>Create New Blog</span>
+                </div>
             <form onSubmit={handleSubmit}>
-                <label className='text-sky-400' htmlFor="title">Blog title:</label>
-                <input type="text" id="title" name="title" value={title} onChange={handleTitleChange} required />
-                <label className='text-sky-400' htmlFor="snippet">Blog snippet:</label>
-                <input type="text" id="snippet" name="snippet" value={snippet} onChange={handleSnippetChange} required />
-                <label className='text-sky-400' htmlFor="body">Blog body:</label>
-                <textarea id="body" name="body" value={body} onChange={handleBodyChange} required></textarea>
-                <button type="submit">Submit</button>
+                <div className="input_box">
+                    <input onChange={handleTitleChange} value={title} type="text" autoComplete="title" id="title" name="title" className="input-field" placeholder="" required />
+                    <label htmlFor="title" className="label">Title</label>
+                </div>
+                <div className="input_box">
+                    <input onChange={handleSnippetChange} value={snippet} type="text" autoComplete="snippet" id="snippet" name="snippet" className="input-field" placeholder="" required />
+                    <label htmlFor="snippet" className="label">Blog Snippet</label>
+                </div>
+                <div className="input_box">
+                    <textarea onChange={handleBodyChange} value={body} type="text" autoComplete="body" id="body" name="body" className="input-field" placeholder="" required ></textarea>
+                    <label htmlFor="body" className="label">Blog Body</label>
+                </div>
+                <div className="input_box">
+                    <button className="input-submit" type='submit'>Post Blog</button>
+                </div>
             </form>
+            </div>
             {error && <div>Some error occurred: {error}</div>}
         </div>
     );

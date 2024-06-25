@@ -3,11 +3,11 @@ import { useAuthContext } from './hooks/useauthContext';
 import { Navbar } from './components/Navbar';
 import { About } from './pages/About';
 import { Create } from './pages/Create';
-import { Footer } from './components/Footer';
+// import { Footer } from './components/Footer';
 import { Error } from './pages/Error'
 import { Details } from './pages/Details';
 import { Home, dataLoader } from './pages/home';
-import {Blogs,myblogLoader} from './pages/blogs';
+import { Blogs, myblogLoader } from './pages/blogs';
 import Signup from './pages/register';
 import Login from './pages/login';
 import { Update } from './pages/update';
@@ -18,7 +18,7 @@ function App() {
     createRoutesFromElements(
       <Route path="/" element={<Root />} errorElement={<Error />}>
         <Route path='/myblogs' index element={<Blogs />} loader={myblogLoader} errorElement={<Error />} />
-        <Route path='/' element={<Home />} loader={dataLoader} errorElement={<Error />} />
+        <Route path='/' element={!user ? <Navigate to="/blogs/login" /> : <Home />} loader={dataLoader} errorElement={<Error />} />
         <Route path='/blogs/:id' index element={<Details />} errorElement={<Error />} />
         <Route path='/about' element={<About />} errorElement={<Error />} />
         <Route path='/blogs/create' element={<Create />} errorElement={<Error />} />
@@ -34,15 +34,14 @@ function App() {
       <RouterProvider router={router} />
     </div>
   );
-} 
+}
 const Root = () => {
   return (
     <>
-      <Navbar />
-      <div>
+      <div style={{display:"grid",gridTemplateColumns:"23% auto"}}>
+        <Navbar />
         <Outlet />
       </div>
-      <Footer />
     </>
   )
 }
