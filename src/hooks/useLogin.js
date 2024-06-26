@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useAuthContext } from "./useauthContext";
+import { toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 export const useLogin = () => {
     const [error, setError] = useState(null)
@@ -10,7 +12,7 @@ export const useLogin = () => {
         setError(null)
 
         try {
-            const response = await fetch('http://localhost:4000/vjti/user/login', {
+            const response = await fetch('https://vjti-blog-server.onrender.com/vjti/user/login', {
                 method: 'POST',
                 body: JSON.stringify({username, password }),
                 headers: {
@@ -22,15 +24,27 @@ export const useLogin = () => {
             if (!response.ok) {
                 setIsLoading(false)
                 setError(json.error)
+                toast.error(`${json.error}`, {
+                    position: "top-center",
+                    autoClose: 2000
+                })
             }
             if (response.ok) {
                 setError(null);
                 localStorage.setItem('user',JSON.stringify(json))
                 dispatch({type:'LOGIN',payload:json})
                 setIsLoading(false)
+                toast.success("Yay! Hogaya login🥳", {
+                    position: "top-center",
+                    autoClose: 2000
+                })
             }
         } catch (error) {
             setError(error.message);
+            toast.error(`${error.message}`, {
+                position: "top-center",
+                autoClose: 2000
+            })
         }
     }
     return {isLoading,error,login}

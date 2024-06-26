@@ -19,7 +19,7 @@ export const Home = () => {
   }
 
   return (
-    <div>
+    <div className="blbox">
       {blogs && blogs.map((blog) => {
         return (
           <div key={blog._id} className="blbox">
@@ -59,7 +59,7 @@ export const dataLoader = async () => {
   }
 
   try {
-    const response = await fetch("http://localhost:4000/vjti/", {
+    const response = await fetch("https://vjti-blog-server.onrender.com/vjti/", {
       headers: {
         'Authorization': `Bearer ${user.token}`
       }

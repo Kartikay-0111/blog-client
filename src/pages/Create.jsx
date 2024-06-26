@@ -31,7 +31,7 @@ export const Create = () => {
         const blog = { title, snippet, body };
 
         try {
-            const response = await fetch('http://localhost:4000/vjti', {
+            const response = await fetch('https://vjti-blog-server.onrender.com/vjti', {
                 method: 'POST',
                 body: JSON.stringify(blog),
                 headers: {
@@ -62,7 +62,7 @@ export const Create = () => {
     }
 
     return (
-        <div className="wrapper">
+        <div className="wrapper ">
             <div className="create_box">
              <div className="create-header">
                     <span>Create New Blog</span>

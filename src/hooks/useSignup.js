@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuthContext } from "./useauthContext";
-
+import { toast} from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 export const useSignup = () => {
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(null)
@@ -10,7 +11,7 @@ export const useSignup = () => {
         setError(null)
 
         try {
-            const response = await fetch('http://localhost:4000/vjti/user/signup', {
+            const response = await fetch('https://vjti-blog-server.onrender.com/vjti/user/signup', {
                 method: 'POST',
                 body: JSON.stringify({ email,username, password }),
                 headers: {
@@ -21,12 +22,20 @@ export const useSignup = () => {
             if (!response.ok) {
                 setIsLoading(false)
                 setError(json.error)
+                toast.error(`${json.error}`, {
+                    position: "top-center",
+                    autoClose: 2000
+                })
             }
             if (response.ok) {
                 setError(null);
                 localStorage.setItem('user',JSON.stringify(json))
                 dispatch({type:'LOGIN',payload:json})
                 setIsLoading(false)
+                toast.success("Yay! Hogaya register🥳", {
+                    position: "top-center",
+                    autoClose: 2000
+                })
             }
         } catch (error) {
             setError(error.message);

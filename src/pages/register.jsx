@@ -2,33 +2,24 @@ import React, { useState } from "react";
 import "./index.css"
 import { useSignup } from "../hooks/useSignup";
 import { Link } from 'react-router-dom'
-import { toast, ToastContainer } from 'react-toastify';
-import "react-toastify/dist/ReactToastify.css";
 
 const Signup = () => {
-    const notify = () => {
-        if (!error && username && password && email) {
-            toast.success("Yay! Hogaya Register🥳", {
-                position: "top-center",
-                autoClose: 2000
-            })
-        }
-        else {
-            toast.error(`${error}`, {
-                position: "top-center",
-                autoClose: 2000
-            })
-        }
-    }
+   
     const [email, setEmail] = useState('')
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const { error, isloading, signup } = useSignup()
+    const [isHidden, setIsHidden] = useState(true)
+    const { isloading, signup } = useSignup()
     const handleSubmit = async (e) => {
         e.preventDefault()
         await signup(email, username, password)
     }
 
+    const handleShow = () => {
+        if (!isHidden) document.getElementById("pass").setAttribute("type", "text")
+        else document.getElementById("pass").setAttribute("type", "password")
+        setIsHidden(!isHidden)
+    }
     return (
         <div className="wrapper">
             <div className="login_box">
@@ -54,20 +45,19 @@ const Signup = () => {
                     <div className="input_box">
                         <input onChange={(e) => setPassword(e.target.value)} value={password} type="password" autoComplete="current-password" id="pass" className="input-field" placeholder="" required />
                         <label htmlFor="pass" className="label">Password</label>
-                        <span className="material-symbols-outlined icon">
-                            lock
+                        <span onClick={handleShow} className="material-symbols-outlined icon">
+                        {isHidden ? "visibility" : 'visibility_off'}
                         </span>
                     </div>
 
                     <div className="input_box">
-                        <button onClick={notify} disabled={isloading} className="input-submit" >{isloading ? "Registering..." : "SignUp"}</button>
+                        <button disabled={isloading} className="input-submit" >{isloading ? "Registering..." : "SignUp"}</button>
                     </div>
                 </form>
                 <div className="register">
                     <span>Have an account? <Link to="/blogs/login">Login now</Link></span>
                 </div>
             </div>
-            <ToastContainer />
         </div>
     );
 };

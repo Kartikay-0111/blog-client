@@ -17,7 +17,7 @@ export const Update = () => {
 
         const fetchBlogDetails = async () => {
           try {
-            const response = await fetch(`http://localhost:4000/vjti/${id}`,{
+            const response = await fetch(`https://vjti-blog-server.onrender.com/vjti/${id}`,{
               headers: {
                 'Authorization': `Bearer ${user.token}`
               }
