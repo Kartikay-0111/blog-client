@@ -45,7 +45,7 @@ const Signup = () => {
                     <div className="input_box">
                         <input onChange={(e) => setPassword(e.target.value)} value={password} type="password" autoComplete="current-password" id="pass" className="input-field" placeholder="" required />
                         <label htmlFor="pass" className="label">Password</label>
-                        <span onClick={handleShow} className="material-symbols-outlined icon">
+                        <span onClick={handleShow} className="material-symbols-outlined icon cursor-pointer">
                         {isHidden ? "visibility" : 'visibility_off'}
                         </span>
                     </div>

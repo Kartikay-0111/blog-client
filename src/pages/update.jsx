@@ -56,7 +56,7 @@ export const Update = () => {
         const blog = { title, snippet, body };
 
         try {
-            const response = await fetch(`http://localhost:4000/vjti/update/${id}`, {
+            const response = await fetch(`https://vjti-blog-server.onrender.com/vjti/update/${id}`, {
                 method: 'PATCH',
                 body: JSON.stringify(blog),
                 headers: {
