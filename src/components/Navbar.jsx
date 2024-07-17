@@ -14,14 +14,14 @@ export const Navbar = () => {
         <div style={{ width: "320px" }}>
             <nav id='sidebar' className="w-72 sm:w-72 md:w-72 lg:w-80 xl:w-80">
                 <div className="site-title">
-                    <Link to="/"><p className="text-4xl font-bold mt-2" style={{ color: "crimson" }}>VJTI BLOG</p></Link>
+                    <Link to="/"><p className="text-4xl font-bold mt-4" style={{ color: "crimson" }}>VJTI BLOG</p></Link>
                 </div>
 
                 <div>
                     <div className='prf-img w-40'>
                         <img src={userimg} alt='username_logo' />
                     </div>
-                    {user && <p className=' text-violet-400' >{user.username}</p>}
+                    {user && <p className='mt-2 text-violet-300' >{user.username}</p>}
                 </div>
 
                 <ul>
@@ -34,7 +34,7 @@ export const Navbar = () => {
                     {!user && <li><NavLink to="/blogs/signup">Signup</NavLink></li>}
                 </ul>
 
-                <footer>Copyright &copy; VJTI Blog 2024</footer>
+                <footer>Kartikay Pandey</footer>
             </nav>
         </div>
     )

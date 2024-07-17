@@ -1,9 +1,9 @@
-
 import React from 'react'
 import { useLoaderData, NavLink} from 'react-router-dom';
 import profileimg from "../assets/prf-img.jpg"
 import Timeago from '../components/Timeago';
 import NoBlogs from './NoBlogs';
+import BlogPostSkeleton from '../components/Skelton';
 // import { useAuthContext } from '../hooks/useauthContext';
 
 export const Blogs = () => {
@@ -12,12 +12,21 @@ export const Blogs = () => {
 
   if (!blogs) {
     // Data is not yet available, show loading indicator or message
-    return <div>Loading...</div>;
+    return <BlogPostSkeleton />;
   }
 
   if (blogs.error) {
     // Error occurred while fetching data, show error message
-    return <div>Error: {blogs.error}</div>;
+    return (
+      <div className='flex justify-center align-middle'>
+        <div className='mt-20 p-5 w-11/12 md:w-7/12 sm:w-7/12 border-white border-4 ring-4 rounded-3xl backdrop-blur-lg'>
+            <div className="no-blogs w-full h-max flex flex-col relative align-middle">
+                <h1 className=' text-rose-700 font-bold text-4xl mt-4'>Error</h1>
+                <p className=' text-rose-300 font-bold text-2xl mt-4'>Failed to fetch blogs</p>
+            </div>
+        </div>
+        </div>
+    )
   }
 
 return (

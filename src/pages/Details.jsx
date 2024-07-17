@@ -3,6 +3,9 @@ import { useParams } from 'react-router-dom';
 import { useAuthContext } from '../hooks/useauthContext';
 import profileimg from "../assets/prf-img.jpg"
 import Timeago from '../components/Timeago';
+import BlogPostSkeleton from '../components/Skelton';
+import { toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 export const Details = () => {
   const [blog, setBlog] = useState(null);
@@ -44,16 +47,31 @@ export const Details = () => {
       }
     })
       .then((response) => response.json())
-      .then(() => window.location.href = '/myblogs')
+      .then(() => {
+        toast.success("Blog deleted successfully", {
+          position: "top-center",
+          autoClose: 2000
+        })
+        window.location.href = '/myblogs'
+      })
       .catch(err => console.log(err));
   };
 
   if (!blog) {
-    return <div>Loading...</div>;
+    return <BlogPostSkeleton />;
   }
 
   if (blog.error) {
-    return <div>Error: {blog.error}</div>;
+    return (
+      <div className='blbox'>
+        <div className='mt-20 p-5  border-white border-4 ring-4 rounded-3xl backdrop-blur-lg'>
+          <div className="no-blogs w-full h-max flex flex-col relative align-middle">
+            <h1 className=' text-rose-700 font-bold text-4xl mt-4'>Error</h1>
+            <p className=' text-rose-300 font-bold text-2xl mt-4'>Failed to fetch the blog</p>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   if (!blog.title) {

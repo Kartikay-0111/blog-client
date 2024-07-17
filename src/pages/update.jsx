@@ -2,6 +2,7 @@ import React, { useState,useEffect } from 'react';
 import { Navigate } from "react-router-dom";
 import {  useParams } from 'react-router-dom';
 import {useAuthContext} from "../hooks/useauthContext"
+import { toast } from 'react-toastify';
 
 export const Update = () => {
     const [blog, setBlog] = useState(null);
@@ -82,6 +83,12 @@ export const Update = () => {
     };
 
     // Redirect to home page if form is Updated successfully
+    if(isUpdated){
+        toast.success("Blog updated🥳", {
+            position: "top-center",
+            autoClose: 2000
+        })
+    }
     if (isUpdated) {
         return <Navigate to="/myblogs" />;
     }
@@ -106,7 +113,7 @@ export const Update = () => {
                 <label htmlFor="body" className="label">Blog Body</label>
             </div>
             <div className="input_box">
-                <button className="input-submit" type='submit'>Post Blog</button>
+                <button className="input-submit" type='submit'>Update Blog</button>
             </div>
         </form>
         </div>
