@@ -6,13 +6,14 @@ import "react-toastify/dist/ReactToastify.css";
 export const useLogin = () => {
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(null)
+    const baseUrl = process.env.REACT_APP_API_BASE_URL;
     const {dispatch} = useAuthContext()
     const login = async (username, password) => {
         setIsLoading(true)
         setError(null)
 
         try {
-            const response = await fetch('https://vjti-blog-server.onrender.com/vjti/user/login', {
+            const response = await fetch(`${baseUrl}/vjti/user/login`, {
                 method: 'POST',
                 body: JSON.stringify({username, password }),
                 headers: {
@@ -41,7 +42,7 @@ export const useLogin = () => {
             }
         } catch (error) {
             setError(error.message);
-            toast.error(`${error.message}`, {
+            toast.warn(`${error.message}`, {
                 position: "top-center",
                 autoClose: 2000
             })

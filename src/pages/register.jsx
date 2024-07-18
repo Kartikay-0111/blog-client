@@ -28,23 +28,23 @@ const Signup = () => {
                 </div>
                 <form onSubmit={handleSubmit}>
                     <div className="input_box">
-                        <input onChange={(e) => setEmail(e.target.value)} value={email} type="email" autoComplete="current-email" id="email" className="input-field" placeholder="" required />
-                        <label htmlFor="email" className="label">Email</label>
+                        <input onChange={(e) => setEmail(e.target.value)} value={email} type="text" autoComplete="current-email" id="email" className="input-field" placeholder="" />
+                        <label htmlFor="email" className="label prevent-select">Email</label>
                         <span className="material-symbols-outlined icon">
                             mail
                         </span>
                     </div>
                     <div className="input_box">
-                        <input onChange={(e) => setUsername(e.target.value)} value={username} type="text" autoComplete="username" id="user" className="input-field" placeholder="" required />
-                        <label htmlFor="user" className="label">Username</label>
+                        <input onChange={(e) => setUsername(e.target.value)} value={username} type="text" autoComplete="username" id="user" className="input-field" placeholder=""/>
+                        <label htmlFor="user" className="label prevent-select">Username</label>
                         <span className="material-symbols-outlined icon">
                             account_circle
                         </span>
                     </div>
 
                     <div className="input_box">
-                        <input onChange={(e) => setPassword(e.target.value)} value={password} type="password" autoComplete="current-password" id="pass" className="input-field" placeholder="" required />
-                        <label htmlFor="pass" className="label">Password</label>
+                        <input onChange={(e) => setPassword(e.target.value)} value={password} type="password" autoComplete="current-password" id="pass" className="input-field" placeholder=""/>
+                        <label htmlFor="pass" className="label prevent-select">Password</label>
                         <span onClick={handleShow} className="material-symbols-outlined icon cursor-pointer">
                         {isHidden ? "visibility" : 'visibility_off'}
                         </span>

@@ -14,7 +14,7 @@ const BlogPostSkeleton = () => {
         </div>
         <div className="part2s"> <Skeleton /></div>
         <div className="part3s"> <Skeleton /></div>
-        <div className="part4s"> <Skeleton count={10} /></div>
+        <div className="part4s"> <Skeleton count={7} /></div>
       </div>
     </div>
   );

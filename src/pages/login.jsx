@@ -31,7 +31,7 @@ const Login = () => {
                 <form onSubmit={handleSubmit}>
                     <div className="input_box">
                         <input onChange={(e) => setusername(e.target.value)} value={username} type="text" autoComplete="username" id="user" className="input-field" placeholder="" required />
-                        <label htmlFor="user" className="label">Username</label>
+                        <label htmlFor="user" className="label prevent-select">Username</label>
                         <span className="material-symbols-outlined icon">
                             person
                         </span>
@@ -39,7 +39,7 @@ const Login = () => {
 
                     <div className="input_box">
                         <input onChange={(e) => setPassword(e.target.value)} value={password} type="password" autoComplete="current-password" id="pass" className="input-field" placeholder="" required />
-                        <label htmlFor="pass" className="label">Password</label>
+                        <label htmlFor="pass" className="label prevent-select">Password</label>
                         <span onClick={handleShow} className="material-symbols-outlined icon cursor-pointer">
                             {isHidden ? "visibility" : "visibility_off"}
                         </span>

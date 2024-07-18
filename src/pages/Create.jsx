@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Navigate } from "react-router-dom";
+import { Navigate,NavLink } from "react-router-dom";
 import { useAuthContext } from "../hooks/useauthContext"
 export const Create = () => {
     const [title, setTitle] = useState('');
@@ -29,9 +29,9 @@ export const Create = () => {
             return
         }
         const blog = { title, snippet, body };
-
+        const baseUrl = process.env.REACT_APP_API_BASE_URL;
         try {
-            const response = await fetch('https://vjti-blog-server.onrender.com/vjti', {
+            const response = await fetch(`${baseUrl}/vjti`, {
                 method: 'POST',
                 body: JSON.stringify(blog),
                 headers: {
@@ -70,19 +70,20 @@ export const Create = () => {
             <form onSubmit={handleSubmit}>
                 <div className="input_box">
                     <input onChange={handleTitleChange} value={title} type="text" autoComplete="title" id="title" name="title" className="input-field" placeholder="" required />
-                    <label htmlFor="title" className="label">Title</label>
+                    <label htmlFor="title" className="label prevent-select">Title</label>
                 </div>
                 <div className="input_box">
                     <input onChange={handleSnippetChange} value={snippet} type="text" autoComplete="snippet" id="snippet" name="snippet" className="input-field" placeholder="" required />
-                    <label htmlFor="snippet" className="label">Blog Snippet</label>
+                    <label htmlFor="snippet" className="label prevent-select">Blog Snippet</label>
                 </div>
                 <div className="input_box">
-                    <textarea onChange={handleBodyChange} value={body} type="text" autoComplete="body" id="body" name="body" className="input-field" placeholder="" required ></textarea>
-                    <label htmlFor="body" className="label">Blog Body</label>
+                    <textarea onChange={handleBodyChange} value={body} type="text" autoComplete="body" id="body" name="body" className="input-field scroll" placeholder="" required ></textarea>
+                    <label htmlFor="body" className="label prevent-select">Blog Body</label>
                 </div>
                 <div className="input_box">
                     <button className="input-submit" type='submit'>Post Blog</button>
                 </div>
+                <p>Use markdowns to enhance your blog structure.<br></br>To know more about markdowns visit <NavLink className=" text-blue-400 hover:text-blue-600 underline" target='blank' to="https://www.markdownguide.org/basic-syntax/">here</NavLink></p>
             </form>
             </div>
             {error && <div>Some error occurred: {error}</div>}

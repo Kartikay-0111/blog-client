@@ -1,20 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@1,700&display=swap');
-
+/* @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@1,700&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap'); */
 body {
   margin: 0px;
   padding: 0;
-  font-family: 'Noto Serif', serif;
+  font-family: sans-serif;
   background-image: url("../public/main-bg.jpeg");
   background-size: cover;
   background-attachment: fixed;
 }
-nav img{
+.prf-img img{
   height: 100%;
   width: 100%;
   box-sizing: border-box;
   background-repeat: no-repeat;
   border-radius: 50%;
+}
+.site-title img{
+  height: 60px;
+  margin-top: 1.5px;
 }
 ::-webkit-scrollbar{
   width: 10px;
@@ -24,20 +28,31 @@ nav img{
   background-color: #508adc8f;
 }
 ::-webkit-scrollbar-thumb{
-  color: crimson;
+  background-color: rgba(163, 23, 51, 0.916);
   border-radius: 5px;
 }
-
+.scroll::-webkit-scrollbar {
+  display: none;
+}
+.prevent-select {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+::selection {
+  color: rgb(255, 14, 14);
+  background: rgb(193, 193, 196);
+}
 /* nav & footer styles */
 nav {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  text-transform: uppercase;
-  gap: 50px;
+  /* text-transform: uppercase; */
+  gap: 30px;
   align-items:center;
   text-align: center;
-  background-color: rgba(49, 6, 108, 0.84);
+  background-color: rgba(29, 2, 67, 0.91);
   border-top-right-radius:  40px;
   border-bottom-right-radius:  40px;
   position: fixed;
@@ -58,15 +73,17 @@ nav footer{
 }
 
 nav ul {
+
   display: flex;  
   flex-direction:column;
   gap: 30px;
+  text-transform: uppercase;
 }
 
 nav li{
   color: #53ced2;
   list-style-type: none;
-  margin-left: 20px; 
+  /* margin-left: 20px;  */
   font-size: 2.7vh;
 }
 
@@ -152,19 +169,28 @@ align-items: center;
   font-style: italic;
 }
 .part3{
-  font-size:1rem;
+  font-size:1.3rem;
   font-weight: 600;
   color: rgb(71, 146, 121);
   padding: 10px;
+
 }
 .part4{
   color: antiquewhite;
-  margin: 20px;
+  margin: 12px;
   padding: 20px;
   padding-top: 0;
   overflow: hidden;
   border-left: 2px solid violet;
   background-color: rgba(17, 6, 46, 0.897);
+  font-family: "Shantell Sans";
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:
+    "BNCE" 0,
+    "INFM" 0,
+    "SPAC" 0;
 }
 
 .about{
@@ -309,7 +335,7 @@ align-items: center;
 }
 
 .login-header span {
-  font-size: 30px;
+  font-size: 24px;
   color: var(--black-color);
 }
 
@@ -418,6 +444,10 @@ align-items: center;
   }
 }
 @media only screen and (max-width: 768px) {
+  .site-title img{
+    height: 40px;
+    /* width: 100px; */
+  }
   .wrapper{
     position: relative;
     z-index: 0;
@@ -433,11 +463,12 @@ align-items: center;
     width: 94%;
   }
   .part4{
-    padding: 0;
+    padding: 5px;
     margin: 0;
     border: none;
   }
   .create_box{
+    margin-top: 10px;
     width: 95vw;
   }
   .create-header{
@@ -463,3 +494,22 @@ align-items: center;
       font-size: small;
     }
 } */
+
+/* HTML: <div class="loader"></div> */
+.loader {
+  height: 100px;
+  aspect-ratio: 2;
+  background:
+    radial-gradient(farthest-side,#000 15%,#0000 18%)0 0/50% 100%,
+    radial-gradient(50% 100% at 50% 160%,#fff 95%,#0000) 0 0   /50% 50%,
+    radial-gradient(50% 100% at 50% -60%,#fff 95%,#0000) 0 100%/50% 50%;
+  background-repeat: repeat-x;
+  -webkit-mask: radial-gradient(50% 100%,#000 95%,#0000) 0 100%/50% 0% repeat-x;
+  animation: l3 1s infinite alternate ease-in;
+}
+@keyframes l3 {
+  0%,
+  70% {-webkit-mask-size:50% 100%}
+  85% {-webkit-mask-size:50% 0}
+  100% {-webkit-mask-size:50% 100%}
+}

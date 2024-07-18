@@ -14,10 +14,24 @@ import Navbar2 from './components/Navbar2';
 import useScreenSize from './hooks/useScreensize';
 import { ToastContainer} from 'react-toastify';
 import LoginFirst from './components/notify';
-
+// import { useState,useEffect } from 'react';
+import LoaderSpinner from './components/Loader';
 
 function App() {
-  const { user } = useAuthContext()
+
+  // const [isLoading, setIsLoading] = useState(true);
+  const { user ,authIsReady} = useAuthContext()
+      // useEffect(() => {
+      //   // Simulate an API call
+      //   setTimeout(() => {
+      //     setIsLoading(false);
+      //   }, 2000);
+      // }, []);
+    
+      if (!authIsReady) {
+        return <LoaderSpinner isPage={false}/>;
+      }
+  
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<Root />} errorElement={<Error />}>

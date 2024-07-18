@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import { Navigate } from "react-router-dom";
+import { Navigate,NavLink } from "react-router-dom";
 import {  useParams } from 'react-router-dom';
 import {useAuthContext} from "../hooks/useauthContext"
 import { toast } from 'react-toastify';
@@ -13,12 +13,12 @@ export const Update = () => {
     const [title, setTitle] = useState('');
     const [snippet, setSnippet] = useState('');
     const [body, setBody] = useState('');
-
+    const baseUrl = process.env.REACT_APP_API_BASE_URL;
     useEffect(() => {
 
         const fetchBlogDetails = async () => {
           try {
-            const response = await fetch(`https://vjti-blog-server.onrender.com/vjti/${id}`,{
+            const response = await fetch(`${baseUrl}/vjti/${id}`,{
               headers: {
                 'Authorization': `Bearer ${user.token}`
               }
@@ -38,7 +38,7 @@ export const Update = () => {
         };
         fetchBlogDetails();
     
-      }, [id,user]);
+      }, [id,user,baseUrl]);
     const handleTitleChange = (event) => {
         setTitle(event.target.value);
     };
@@ -55,9 +55,9 @@ export const Update = () => {
         e.preventDefault();
        
         const blog = { title, snippet, body };
-
+        const baseUrl = process.env.REACT_APP_API_BASE_URL;
         try {
-            const response = await fetch(`https://vjti-blog-server.onrender.com/vjti/update/${id}`, {
+            const response = await fetch(`${baseUrl}/vjti/update/${id}`, {
                 method: 'PATCH',
                 body: JSON.stringify(blog),
                 headers: {
@@ -97,7 +97,7 @@ export const Update = () => {
         <div className="wrapper">
         <div className="create_box">
          <div className="create-header">
-                <span>Create New Blog</span>
+                <span>Update your Blog</span>
             </div>
         <form onSubmit={handleSubmit}>
             <div className="input_box">
@@ -109,12 +109,13 @@ export const Update = () => {
                 <label htmlFor="snippet" className="label">Blog Snippet</label>
             </div>
             <div className="input_box">
-                <textarea onChange={handleBodyChange} value={body} type="text" autoComplete="body" id="body" name="body" className="input-field" placeholder="" required ></textarea>
+                <textarea onChange={handleBodyChange} value={body} type="text" autoComplete="body" id="body" name="body" className="input-field scroll" placeholder="" required ></textarea>
                 <label htmlFor="body" className="label">Blog Body</label>
             </div>
             <div className="input_box">
                 <button className="input-submit" type='submit'>Update Blog</button>
             </div>
+            <p>Use markdowns to enhance your blog structure.<br></br>To know more about markdowns visit <NavLink className=" text-blue-400 hover:text-blue-600 underline" target='blank' to="https://www.markdownguide.org/basic-syntax/">here</NavLink></p>
         </form>
         </div>
         {error && <div>Some error occurred: {error}</div>}

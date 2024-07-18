@@ -1,6 +1,20 @@
 import React from 'react'
 import vjti from "../assets/vjti.jpg"
+import { useState,useEffect } from 'react';
+import LoaderSpinner from '../components/Loader';
 export const About = () => {
+  const [isLoading, setIsLoading] =
+   useState(true);
+      useEffect(() => {
+        // Simulate an API call
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 1000);
+      }, []);
+    
+      if (isLoading) {
+        return <LoaderSpinner isPage={true}/>;
+      }
   return (
     <div className="about">
       <img src={vjti} alt="" />

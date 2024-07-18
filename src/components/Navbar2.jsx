@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useLogout } from '../hooks/useLogout';
 import userimg from "../assets/prf-img.jpg";
-
+import logo from "../assets/logoblog.png"
 const Navbar2 = () => {
     const [isNavbarVisible, setIsNavbarVisible] = useState(false);
     const { logout } = useLogout();
@@ -19,8 +19,8 @@ const Navbar2 = () => {
 
     return (
         <div className='mainnav fixed flex flex-row items-center justify-between h-16 w-full z-10'>
-            <div className="site-title pl-5">
-                <Link to="/"><p className=" font-bold" style={{ color: "crimson" }}>VJTI BLOG</p></Link>
+            <div className="site-title ">
+                <Link to="/"><img src={logo} alt="" /></Link>
             </div>
             <div className='flex items-center gap-2'>
                 <p className='text-blue-300 text-xl'>{user ? user.username : 'Guest'}</p>

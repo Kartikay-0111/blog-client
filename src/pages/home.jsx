@@ -4,9 +4,24 @@ import profileimg from "../assets/prf-img.jpg";
 import Timeago from '../components/Timeago';
 import BlogPostSkeleton from '../components/Skelton';
 import { useState ,useEffect} from 'react';
+import Markdown from 'react-markdown'
+// import LoaderSpinner from '../components/Loader';
 
 export const Home = () => {
   const blogs = useLoaderData();
+
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    // Simulate an API call
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, []);
+
+  if (isLoading) {
+    return (<div className='blbox'><BlogPostSkeleton /><BlogPostSkeleton /></div>);
+  }
+
   if (!blogs) {
     // Data is not yet available, show loading indicator or message
     return <BlogPostSkeleton />;
@@ -15,7 +30,7 @@ export const Home = () => {
   if (blogs.error) {
     // Error occurred while fetching data, show error message
     return (
-      <div className='flex justify-center align-middle'>
+      <div className='blbox'>
         <div className='mt-20 p-5 w-11/12 md:w-7/12 sm:w-7/12 border-white border-4 ring-4 rounded-3xl backdrop-blur-lg'>
           <div className="no-blogs w-full h-max flex flex-col relative align-middle">
             <h1 className=' text-rose-700 font-bold text-4xl mt-4'>Error</h1>
@@ -43,7 +58,7 @@ export const Home = () => {
             <div className="part2">{blog.title}</div>
             <div className="part3">{blog.snippet}</div>
             <div className="part4">
-              {blog.body.slice(0, 300)}
+              <Markdown>{blog.body.slice(0, 300)}</Markdown>
               <Link className=' text-blue-400 hover:text-blue-700' to={`/blogs/${blog._id}`}>...more</Link>
             </div>
             <div className="part5 flex flex-col p-4">
@@ -63,13 +78,13 @@ export const Home = () => {
 
 export const dataLoader = async () => {
   const user = JSON.parse(localStorage.getItem('user')); // Example: storing user in localStorage
-
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
   if (!user || !user.token) {
     return { error: 'User is not authenticated' };
   }
 
   try {
-    const response = await fetch("https://vjti-blog-server.onrender.com/vjti/", {
+    const response = await fetch(`${baseUrl}/vjti/`, {
       headers: {
         'Authorization': `Bearer ${user.token}`
       }
