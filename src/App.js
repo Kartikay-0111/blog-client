@@ -12,31 +12,30 @@ import Login from './pages/login';
 import { Update } from './pages/update';
 import Navbar2 from './components/Navbar2';
 import useScreenSize from './hooks/useScreensize';
-import { ToastContainer} from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import LoginFirst from './components/notify';
-// import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import LoaderSpinner from './components/Loader';
 
 function App() {
 
-  // const [isLoading, setIsLoading] = useState(true);
-  const { user ,authIsReady} = useAuthContext()
-      // useEffect(() => {
-      //   // Simulate an API call
-      //   setTimeout(() => {
-      //     setIsLoading(false);
-      //   }, 2000);
-      // }, []);
-    
-      if (!authIsReady) {
-        return <LoaderSpinner isPage={false}/>;
-      }
+  const [isLoading, setIsLoading] = useState(true);
+  const { user, authIsReady } = useAuthContext()
+ 
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
   
+
+  if (isLoading) {
+    return <LoaderSpinner isPage={false} />;
+  }
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<Root />} errorElement={<Error />}>
         <Route path='/myblogs' index element={<Blogs />} loader={myblogLoader} errorElement={<Error />} />
-        <Route path='/' element={!user ? <LoginFirst />  : <Home />} loader={dataLoader} errorElement={<Error />} />
+        <Route path='/' element={!user ? <LoginFirst /> : <Home />} loader={dataLoader} errorElement={<Error />} />
         <Route path='/blogs/:id' index element={<Details />} errorElement={<Error />} />
         <Route path='/about' element={<About />} errorElement={<Error />} />
         <Route path='/blogs/create' element={user ? <Create /> : <Navigate to="/blogs/login" />} errorElement={<Error />} />

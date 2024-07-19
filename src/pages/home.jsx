@@ -8,14 +8,15 @@ import Markdown from 'react-markdown'
 // import LoaderSpinner from '../components/Loader';
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import { useAuthContext } from '../hooks/useauthContext';
 
 export const Home = () => {
   const initialBlogs = useLoaderData();
-  const user = JSON.parse(localStorage.getItem('user'));
+  const { user } = useAuthContext()
   const [blogs, setBlogs] = useState(initialBlogs);
   const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
-    // Simulate an API call
     setTimeout(() => {
       setIsLoading(false);
     }, 1000);
@@ -73,10 +74,10 @@ export const Home = () => {
 
         setBlogs(updatedBlogs);
 
-        toast.success(`You ${liked ? 'disliked' : 'liked'} the blog`, {
-          position: 'top-center',
-          autoClose: 2000,
-        });
+        // toast.success(`You ${liked ? 'disliked' : 'liked'} the blog`, {
+        //   position: 'top-center',
+        //   autoClose: 2000,
+        // });
       } else {
         const json = await response.json();
         console.log(json.error);
@@ -113,7 +114,7 @@ export const Home = () => {
                     <path d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"></path>
                   </svg>
                 </div>
-                <div className="text-gray-400 ml-3"><p>{blog.likes.length} Likes</p></div>
+                <div className="text-gray-400 ml-3 prevent-select"><p>{blog.likes.length} Likes</p></div>
               </div>
             </div>
           </div>
